@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Async AI Pipeline</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <p class="eyebrow">FastAPI · Redis · ARQ</p>
+        <h1>Summarize &amp; extract action items</h1>
+        <p class="lede">
+          Submit a document. The API queues the job, a worker calls the model,
+          and this page polls status every two seconds until the structured
+          result lands in Redis.
+        </p>
+      </header>
+
+      <main class="grid">
+        <section class="card">
+          <h2>New job</h2>
+          <form id="job-form">
+            <label for="title">Title <span>(optional)</span></label>
+            <input id="title" name="title" type="text" maxlength="200" placeholder="Q3 planning notes" />
+
+            <label for="text">Source text</label>
+            <textarea
+              id="text"
+              name="text"
+              required
+              minlength="20"
+              maxlength="20000"
+              placeholder="Paste meeting notes, a brief, or an email thread…"
+            ></textarea>
+
+            <div class="actions">
+              <button type="submit" id="submit-btn">Queue job</button>
+              <p class="hint" id="form-hint">POST /api/v1/summarize · rate limited</p>
+            </div>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>Live status</h2>
+          <div id="status-panel" class="status-idle">
+            <div class="status-row">
+              <span class="chip" id="status-chip">idle</span>
+              <code id="job-id">no job yet</code>
+            </div>
+            <div class="progress" aria-hidden="true">
+              <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <p id="status-message">Submit text to start an async job.</p>
+          </div>
+        </section>
+      </main>
+
+      <section class="card result-card">
+        <h2>Result payload</h2>
+        <div id="result-body" class="empty-result">Waiting for a completed job.</div>
+      </section>
+    </div>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

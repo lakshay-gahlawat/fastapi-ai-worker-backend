@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: fastapi-ai-worker
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: AI_PROVIDER
+        value: groq
+      - key: OPENAI_MODEL
+        value: llama-3.1-8b-instant
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: REDIS_URL
+        sync: false
