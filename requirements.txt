@@ -6,5 +6,5 @@ arq
 redis
 groq
 openai
-fastapi-async-ratelimit
+fastapi-async-ratelimit==0.1.1
 setuptools
