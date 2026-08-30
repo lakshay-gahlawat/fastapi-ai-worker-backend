@@ -6,7 +6,6 @@ from typing import AsyncIterator, Optional
 from uuid import uuid4
 
 from arq import create_pool
-from arq.connections import RedisSettings
 from arq.jobs import Job, JobStatus
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
@@ -30,9 +29,7 @@ ARQ_TO_PUBLIC: dict[JobStatus, JobStatusName] = {
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     """Hold an ARQ Redis pool for enqueue + job-record reads."""
-    app.state.redis = await create_pool(
-        RedisSettings(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
-    )
+    app.state.redis = await create_pool(settings.arq_redis_settings)
     yield
     await app.state.redis.close()
 

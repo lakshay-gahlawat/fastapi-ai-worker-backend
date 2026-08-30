@@ -6,8 +6,6 @@ import logging
 import time
 from typing import Any, Optional
 
-from arq.connections import RedisSettings
-
 from app.ai_client import AIProcessingError, summarize_and_extract
 from app.config import settings
 from app.job_store import save_job
@@ -84,7 +82,7 @@ class WorkerSettings:
     """ARQ Redis worker configuration."""
 
     functions = [summarize_text, process_ai_task]
-    redis_settings = RedisSettings(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
+    redis_settings = settings.arq_redis_settings
     max_tries = 1
     job_timeout = 180
     keep_result = settings.JOB_TTL_SECONDS

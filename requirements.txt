@@ -6,4 +6,5 @@ arq
 redis
 groq
 openai
+tenacity
 setuptools

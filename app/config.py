@@ -1,3 +1,4 @@
+from arq.connections import RedisSettings
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -26,7 +27,17 @@ class Settings(BaseSettings):
     @property
     def redis_url(self) -> str:
         """Redis URL used by ARQ, the job store, and rate limiting."""
+        if self.REDIS_URL.strip():
+            return self.REDIS_URL.strip()
         return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}"
+
+    @property
+    def arq_redis_settings(self) -> RedisSettings:
+        """ARQ pool settings: prefer REDIS_URL (Render/rediss), else host/port."""
+        url = self.REDIS_URL.strip()
+        if url:
+            return RedisSettings.from_dsn(url)
+        return RedisSettings(host=self.REDIS_HOST, port=self.REDIS_PORT, database=self.REDIS_DB)
 
 
 settings = Settings()
