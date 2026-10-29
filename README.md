@@ -9,9 +9,9 @@ polls for a structured JSON result.
 
 | | Link |
 |---|---|
-| **Live app (dashboard)** | https://fastapi-ai-worker.onrender.com |
-| **API docs (Swagger)** | https://fastapi-ai-worker.onrender.com/docs |
-| **Health check** | https://fastapi-ai-worker.onrender.com/health |
+| **Live app (dashboard)** | [https://fastapi-ai-worker.onrender.com](https://fastapi-ai-worker-9tx1.onrender.com) |
+| **API docs (Swagger)** | [https://fastapi-ai-worker.onrender.com/docs](https://fastapi-ai-worker-9tx1.onrender.com/docs) |
+| **Health check** | [https://fastapi-ai-worker.onrender.com/health ](https://fastapi-ai-worker-9tx1.onrender.com/health)|
 
 > **Note:** this runs on free-tier hosting. After a period of inactivity the
 > first request can take up to a minute while the service wakes up. The demo
